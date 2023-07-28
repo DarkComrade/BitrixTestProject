@@ -12,7 +12,9 @@ $(document).ready(function () {
                 postId = response.data['postId'];
                 $(".isVoted[data-post=" + postId + "]").removeClass("nonActive");
                 $(".sendVote[data-post=" + postId + "]").addClass("nonActive");
-
+                let count = $(".voteCountValue[data-post=" + postId + "]").text();
+                count++;
+                $(".voteCountValue[data-post=" + postId + "]").html(count);
             }
         })
     })

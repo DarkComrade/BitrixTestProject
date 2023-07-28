@@ -9,4 +9,7 @@
          data-post="<?= $arParams['POST_ID'] ?>">Голос принят
     </div>
 </div>
-<div class="voteCount"><?= 'Проголосовало ' . $arParams['VOTE_COUNT'] ?></div>
+<div class="voteCount">
+    <div>Проголосовало:&nbsp;</div>
+    <div class="voteCountValue" data-post="<?= $arParams['POST_ID'] ?>"><?= $arParams['VOTE_COUNT'] ?></div>
+</div>

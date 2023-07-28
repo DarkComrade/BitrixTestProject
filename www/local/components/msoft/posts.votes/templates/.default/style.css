@@ -5,6 +5,10 @@
     align-items: center;
 }
 
+.voteCount {
+    display: flex;
+}
+
 .voteBlock .nonActive {
     display: none;
 }
