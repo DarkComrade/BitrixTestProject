@@ -36,4 +36,4 @@ migrateInstall: ## Подтягивание зависимостей компо�
 	docker-compose exec php bash -c "php /var/www/bitrix/local/migrator install"
 
 migrateUp: ## Подтягивание зависимостей композер
-	docker-compose exec php bash -c "php /var/www/bitrix/local/migrator migrate"
+	docker-compose exec php bash -c "cd /var/www/bitrix/local/ && php /var/www/bitrix/local/migrator migrate"
