@@ -54,7 +54,7 @@ class HlPostsVotesCreate20230727093927760118 extends BitrixMigration
         if ($hlblock !== false) {
             $hlId = $hlblock['ID'];
 
-            $oUserTypeEntity    = new CUserTypeEntity();
+            $oUserTypeEntity = new CUserTypeEntity();
             $oUserTypeEntity->DropEntity('HLBLOCK_' . $hlId);
 
             $result = HL\HighloadBlockTable::delete($hlblock['ID']);

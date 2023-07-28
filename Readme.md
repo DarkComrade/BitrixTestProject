@@ -20,7 +20,7 @@
           $ make initDump
 
 -  ##### Разворачивание ядра битрикс
-    - Скопировать архив ядра по ссылке (https://drive.google.com/file/d/18wG52b6fGbVIGq64RGYxc4vSKBbt_8HM/view?usp=drive_link) и поместить его в папку bitrixCore
+    - Скопировать архив ядра по ссылке (https://drive.google.com/file/d/1U5aK14mY1ZQpxMjpr8LgFfTtqrXhklFC/view?usp=drive_link) и поместить его в папку bitrixCore
     - Запустить команду: 
                 
            $ make initBitrixCore

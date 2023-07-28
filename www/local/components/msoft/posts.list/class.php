@@ -1,5 +1,5 @@
 <?php
-if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 use Bitrix\Highloadblock as HL;
 use Bitrix\Main\Loader;
@@ -11,9 +11,12 @@ class MsoftPostsList extends CBitrixComponent
     const HIGLOAD_POST_NAME = 'POSTS';
     const HIGLOAD_VOTES_NAME = 'VOTES';
 
+    const CACHE_POST_TTL = 3600;
+
     public function onPrepareComponentParams($arParams)
     {
         $arParams['currentUserIP'] = $_SERVER['REMOTE_ADDR'];
+        $arParams['NAV_PAGE_SIZE'] = empty($arParams['NAV_PAGE_SIZE']) ? 5 : $arParams['NAV_PAGE_SIZE'];
 
         return $arParams;
     }
@@ -22,7 +25,6 @@ class MsoftPostsList extends CBitrixComponent
     {
         Loader::includeModule('highloadblock');
         Loader::includeModule('msoft.team');
-
 
         $this->arResult['USER_IP'] = $this->arParams['currentUserIP'];
         $this->arResult['POSTS'] = $this->getPostsList();
@@ -40,7 +42,7 @@ class MsoftPostsList extends CBitrixComponent
         $allCount = $postEntity::getCount();
 
         $nav = new \Bitrix\Main\UI\PageNavigation('post');
-        $nav->setPageSize(5)
+        $nav->setPageSize($this->arParams['NAV_PAGE_SIZE'])
             ->initFromUri();
         $nav->setRecordCount($allCount);
 
@@ -48,6 +50,9 @@ class MsoftPostsList extends CBitrixComponent
         $dbRes = $postEntity::getList([
             'offset' => $nav->getOffset(),
             'limit' => $nav->getLimit(),
+            'cache' => [
+                'ttl' => self::CACHE_POST_TTL,
+            ]
         ]);
 
         while ($item = $dbRes->fetch()) {

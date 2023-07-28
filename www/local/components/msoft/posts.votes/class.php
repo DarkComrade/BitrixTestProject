@@ -1,5 +1,5 @@
 <?php
-if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 use Bitrix\Highloadblock as HL;
 use Bitrix\Main\Loader;
@@ -11,8 +11,6 @@ class MsoftPostsVotes extends CBitrixComponent
     public function onPrepareComponentParams($arParams)
     {
         $arParams['currentUserIP'] = $_SERVER['REMOTE_ADDR'];
-
-
         return $arParams;
     }
 

@@ -1,6 +1,6 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die(); ?>
 
-<?=$arResult['USER_IP']?>
+<?= 'Текущий IP: ' . $arResult['USER_IP'] ?>
 
 <div class="postsContainer">
     <div class="postsBlocks">

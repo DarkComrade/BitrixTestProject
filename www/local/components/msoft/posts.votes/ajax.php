@@ -8,7 +8,6 @@ use Bitrix\Main\Loader;
 
 class PostsVotesAjaxController extends \Bitrix\Main\Engine\Controller
 {
-
     const HIGLOAD_VOTES_NAME = 'VOTES';
 
     protected function init()
@@ -22,7 +21,6 @@ class PostsVotesAjaxController extends \Bitrix\Main\Engine\Controller
         ]);
 
     }
-
 
     public function addAction(array $fields)
     {
