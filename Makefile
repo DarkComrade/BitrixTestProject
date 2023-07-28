@@ -9,7 +9,7 @@ up: ## Up Docker-project
 	docker-compose up -d
 
 down: ## Down Docker-project
-	docker-compose down --remove-orphans -v
+	docker-compose down --remove-orphans
 
 stop: ## Stop Docker-project
 	docker-compose stop
@@ -25,3 +25,6 @@ ps: ## Build Docker-project
 
 initDump: ## Восстановить начальный дамп
 	 gunzip -c ./dump/init_dump.sql.gz | docker-compose exec -T db mysql -u root --password=$(MYSQL_ROOT_PASSWORD) $(MYSQL_DATABASE)
+
+initBitrixCore: ## распаковать ядро битрикса в проект
+	 tar -xvf ./bitrixCore/bitrix.tar -C ./www/
