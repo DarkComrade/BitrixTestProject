@@ -15,7 +15,7 @@ class MsoftPostsList extends CBitrixComponent
 
     public function onPrepareComponentParams($arParams)
     {
-        $arParams['currentUserIP'] = $_SERVER['REMOTE_ADDR'];
+        $arParams['currentUserIP'] = getClientIp();
         $arParams['NAV_PAGE_SIZE'] = empty($arParams['NAV_PAGE_SIZE']) ? 5 : $arParams['NAV_PAGE_SIZE'];
 
         return $arParams;

@@ -1,4 +1,11 @@
 
+.voteBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .voteBlock .nonActive {
     display: none;
 }
+

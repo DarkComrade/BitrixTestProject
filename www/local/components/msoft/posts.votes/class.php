@@ -10,7 +10,7 @@ class MsoftPostsVotes extends CBitrixComponent
 
     public function onPrepareComponentParams($arParams)
     {
-        $arParams['currentUserIP'] = $_SERVER['REMOTE_ADDR'];
+        $arParams['currentUserIP'] = getClientIp();
         return $arParams;
     }
 

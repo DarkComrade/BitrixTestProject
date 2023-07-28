@@ -32,7 +32,7 @@ class PostsVotesAjaxController extends \Bitrix\Main\Engine\Controller
         $voteRes = $votesEntity::getList([
             'filter' => [
                 'UF_POST_ID' => $fields['POST_ID'],
-                'UF_IP_ADDRESS' => $_SERVER['REMOTE_ADDR']
+                'UF_IP_ADDRESS' => getClientIp()
             ],
             'limit' => 1]);
         if ($voteRes->fetch()) {
@@ -44,7 +44,7 @@ class PostsVotesAjaxController extends \Bitrix\Main\Engine\Controller
 
         $result = $votesEntity::add([
             'UF_POST_ID' => $fields['POST_ID'],
-            'UF_IP_ADDRESS' => $_SERVER['REMOTE_ADDR']
+            'UF_IP_ADDRESS' => getClientIp()
         ]);
 
         return [

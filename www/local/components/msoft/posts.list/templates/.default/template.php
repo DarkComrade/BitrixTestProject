@@ -6,8 +6,8 @@
     <div class="postsBlocks">
         <? foreach ($arResult['POSTS'] as $post) { ?>
             <div class="postBlock">
-                <div> <?= $post['UF_NAME'] ?></div>
-                <div><?=
+                <div class="postBlock_item"> <?= $post['UF_NAME'] ?></div>
+                <div class="postBlock_item"><?=
                     $APPLICATION->IncludeComponent('msoft:posts.votes', '.default', [
                         'VOTE_COUNT' => (int)$post['UF_VOTE_COUNT'],
                         'USER_IP' => $arResult['USER_IP'],
