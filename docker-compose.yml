@@ -1,0 +1,99 @@
+version: "3"
+
+volumes:
+  db:
+    driver: local
+  cache:
+    driver: local
+
+networks:
+  badamshintestproject:
+
+services:
+  php:
+    build: ./docker/php
+    environment:
+      PHP_IDE_CONFIG: "serverName=BadamshinTestProject"
+    volumes_from:
+      - source
+    links:
+      - db
+      - memcached
+    stdin_open: true
+    tty: true
+    networks:
+      - badamshintestproject
+    restart: unless-stopped
+
+  nginx:
+    build: ./docker/nginx
+    container_name: nginx
+    depends_on:
+      - source
+    volumes_from:
+      - source
+    ports:
+      - '80:80'
+      - '443:443'
+    links:
+      - php
+    networks:
+      - badamshintestproject
+    environment:
+      - TZ=Europe/Moscow
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  db:
+    build: ./docker/mysql
+    container_name: db
+    volumes:
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    volumes_from:
+      - source
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      TZ: Europe/Moscow
+    command: mysqld --user=root --sql-mode=""
+    networks:
+      - badamshintestproject
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  memcached:
+    image: memcached:latest
+    container_name: memcached
+    volumes_from:
+      - source
+    ports:
+      - '11211:11211'
+    networks:
+      - badamshintestproject
+    environment:
+      - TZ=Europe/Moscow
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+
+  source:
+    image: alpine:latest
+    container_name: source
+    tty: true
+    volumes:
+      - ./dump:/dump
+      - ./logs/nginx:/var/log/nginx
+      - ./logs/php:/var/log/php
+      - ./logs/db:/var/log/mysql
+      - ./logs/memcached:/var/log/memcached
+      - db:/var/lib/mysql
+      - cache:/var/lib/memcached
+      - ./www:/var/www/bitrix
+    networks:
+      - badamshintestproject
