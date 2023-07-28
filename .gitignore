@@ -1,5 +1,6 @@
 /www/bitrix/
 /www/upload/
+/www/local/vendor/
 .htaccess
 .env
 .settings.php
@@ -10,9 +11,11 @@ dbconn.php
 *.tar
 *.txt
 *.tar.gz
+*.sql.gz
 *.xml
 .idea/
-/local/vendor/
 .DS_STORE
+/www/.DS_STORE
+
 
 
