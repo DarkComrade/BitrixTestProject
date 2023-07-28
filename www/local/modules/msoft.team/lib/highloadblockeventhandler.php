@@ -20,7 +20,6 @@ class HighloadBlockEventHandler
         $conn = Application::getConnection();
         $conn->startTransaction();
         try {
-
             $postId = $arParam['fields']['UF_POST_ID'];
             $votesHlId = \Msoft\Team\HighloadBlockHelper::getIdByCode(self::HIGLOAD_VOTES_NAME);
             /** @var DataManager $votesEntity */
@@ -46,6 +45,27 @@ class HighloadBlockEventHandler
         } catch (\Exception $exception) {
             $conn->rollbackTransaction();
         }
+    }
 
+    public static function onAfterDeletePost(Event $event)
+    {
+        $arParam = $event->getParameters();
+        $postId = $arParam['id']['ID'];
+        $votesHlId = \Msoft\Team\HighloadBlockHelper::getIdByCode(self::HIGLOAD_VOTES_NAME);
+        $votesEntity = HL\HighloadBlockTable::compileEntity($votesHlId)->getDataClass();
+
+        $dbRes = $votesEntity::getList([
+                'select' => [
+                    'ID'
+                ],
+                'filter' => [
+                    '=UF_POST_ID' => $postId,
+                ]
+            ]
+        );
+
+        while ($voteItem = $dbRes->fetch()) {
+            $votesEntity::delete($voteItem['ID']);
+        }
     }
 }
