@@ -33,7 +33,7 @@ services:
     volumes_from:
       - source
     ports:
-      - '8078:80'
+      - '80:80'
       - '443:443'
     links:
       - php
