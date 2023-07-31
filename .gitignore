@@ -17,7 +17,7 @@ dbconn.php
 .DS_STORE
 /www/.DS_STORE
 /www/.DS_Store
-
+!/docker/php/php.ini
 
 
 
