@@ -5,6 +5,7 @@ namespace Msoft\Team;
 use Bitrix\Main\Loader;
 use Bitrix\Highloadblock as HL;
 use Bitrix\Main\Data\Cache;
+use Bitrix\Main\ORM\Data\DataManager;
 
 
 class HighloadBlockHelper
@@ -32,6 +33,18 @@ class HighloadBlockHelper
         };
 
         return $result;
+    }
+
+    public static function compileEntityByCode(string $code)
+    {
+        if (empty($code)) return null;
+        $result = null;
+        Loader::includeModule('highloadblock');
+        $resultId = self::getIdByCode($code);
+        if (!$resultId) {
+            return false;
+        }
+        return HL\HighloadBlockTable::compileEntity($resultId)->getDataClass();
     }
 
 }

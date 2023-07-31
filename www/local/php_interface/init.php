@@ -1,5 +1,10 @@
 <?php
 
+define('HL_VOTES_CODE','VOTES');
+define('HL_POSTS_CODE','POSTS');
+
+
+
 \Bitrix\Main\Loader::registerNamespace('Msoft\Team', $_SERVER['DOCUMENT_ROOT'] . '/local/modules/msoft.team/lib');
 
 $eventManager = Bitrix\Main\EventManager::getInstance();

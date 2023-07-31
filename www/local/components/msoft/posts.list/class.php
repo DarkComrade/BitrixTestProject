@@ -36,9 +36,8 @@ class MsoftPostsList extends CBitrixComponent
     {
         $postsData = [];
 
-        $id = \Msoft\Team\HighloadBlockHelper::getIdByCode(self::HIGLOAD_POST_NAME);
         /** @var DataManager $postEntity */
-        $postEntity = HL\HighloadBlockTable::compileEntity($id)->getDataClass();
+        $postEntity = \Msoft\Team\HighloadBlockHelper::compileEntityByCode(HL_POSTS_CODE);
         $allCount = $postEntity::getCount();
 
         $nav = new \Bitrix\Main\UI\PageNavigation('post');
@@ -69,11 +68,10 @@ class MsoftPostsList extends CBitrixComponent
         if (empty($this->arResult['POSTS'])) return [];
         $postIds = array_column($this->arResult['POSTS'], 'ID');
 
-        $id = \Msoft\Team\HighloadBlockHelper::getIdByCode(self::HIGLOAD_VOTES_NAME);
-        /** @var DataManager $postEntity */
-        $postEntity = HL\HighloadBlockTable::compileEntity($id)->getDataClass();
+        /** @var DataManager $votesEntity */
+        $votesEntity = \Msoft\Team\HighloadBlockHelper::compileEntityByCode(HL_VOTES_CODE);
 
-        $dbRes = $postEntity::getList([
+        $dbRes = $votesEntity::getList([
             'filter' => [
                 '=UF_POST_ID' => $postIds,
                 '=UF_IP_ADDRESS' => $this->arParams['currentUserIP']

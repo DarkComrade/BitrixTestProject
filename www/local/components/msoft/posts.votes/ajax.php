@@ -4,6 +4,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 use Bitrix\Main\ORM\Data\DataManager;
 use Bitrix\Highloadblock as HL;
 use Bitrix\Main\Loader;
+use Msoft\Team\HighloadBlockHelper;
 
 
 class PostsVotesAjaxController extends \Bitrix\Main\Engine\Controller
@@ -25,9 +26,8 @@ class PostsVotesAjaxController extends \Bitrix\Main\Engine\Controller
     public function addAction(array $fields)
     {
         Loader::includeModule('highloadblock');
-        $votesHlId = \Msoft\Team\HighloadBlockHelper::getIdByCode(self::HIGLOAD_VOTES_NAME);
         /** @var DataManager $votesEntity */
-        $votesEntity = HL\HighloadBlockTable::compileEntity($votesHlId)->getDataClass();
+        $votesEntity = HighloadBlockHelper::compileEntityByCode(HL_VOTES_CODE);
 
         $voteRes = $votesEntity::getList([
             'filter' => [

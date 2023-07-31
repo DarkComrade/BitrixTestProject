@@ -11,8 +11,6 @@ use Bitrix\Highloadblock as HL;
 
 class HighloadBlockEventHandler
 {
-    const HIGLOAD_POST_NAME = 'POSTS';
-    const HIGLOAD_VOTES_NAME = 'VOTES';
 
     public static function onAddVotes(Event $event)
     {
@@ -21,9 +19,10 @@ class HighloadBlockEventHandler
         $conn->startTransaction();
         try {
             $postId = $arParam['fields']['UF_POST_ID'];
-            $votesHlId = \Msoft\Team\HighloadBlockHelper::getIdByCode(self::HIGLOAD_VOTES_NAME);
+
             /** @var DataManager $votesEntity */
-            $votesEntity = HL\HighloadBlockTable::compileEntity($votesHlId)->getDataClass();
+            $votesEntity = \Msoft\Team\HighloadBlockHelper::compileEntityByCode(HL_VOTES_CODE);
+
 
             $count = $votesEntity::getCount(
                 [
@@ -34,9 +33,8 @@ class HighloadBlockEventHandler
                 throw new Exception('Ошибка при получении количества голосов');
             }
 
-            $postsHlId = \Msoft\Team\HighloadBlockHelper::getIdByCode(self::HIGLOAD_POST_NAME);
             /** @var DataManager $postEntity */
-            $postEntity = HL\HighloadBlockTable::compileEntity($postsHlId)->getDataClass();
+            $postEntity = \Msoft\Team\HighloadBlockHelper::compileEntityByCode(HL_POSTS_CODE);
 
             $postEntity::update($postId, [
                 'UF_VOTE_COUNT' => $count
@@ -51,8 +49,7 @@ class HighloadBlockEventHandler
     {
         $arParam = $event->getParameters();
         $postId = $arParam['id']['ID'];
-        $votesHlId = \Msoft\Team\HighloadBlockHelper::getIdByCode(self::HIGLOAD_VOTES_NAME);
-        $votesEntity = HL\HighloadBlockTable::compileEntity($votesHlId)->getDataClass();
+        $votesEntity = \Msoft\Team\HighloadBlockHelper::compileEntityByCode(HL_VOTES_CODE);
 
         $dbRes = $votesEntity::getList([
                 'select' => [
