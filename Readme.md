@@ -44,4 +44,8 @@
     Среди миграции также есть инициализация начальных тестовых данных
 
 ---
-- Адрес проекта  http://localhost:8078/
+- Дополнительная информация
+    - Адрес проекта  http://localhost:8078/
+    - Логин / пароль админки битрикс: admin / password
+    - Если нужно скопировать настройки из .settings.exapmle.php в /bitrix/.settings.php
+    - Если нужно скопировать настройки из dbconn.example.php в /bitrix/php_interface/dbconn.php

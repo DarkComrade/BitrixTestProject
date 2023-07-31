@@ -10,7 +10,7 @@ return array(
         array(
             'value' =>
                 array(
-                    'type' => 'memcached',
+                    'type' => 'memcache',
                     'memcache' => array(
                         'host' => 'memcached',
                         'port' => '11211',
